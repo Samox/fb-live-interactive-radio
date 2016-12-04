@@ -114,6 +114,10 @@
             position: relative;
             text-align: center;
         }
+				.videoRight {
+					display: block
+				}
+				.container {width: 300}
 	</style>
 </head>
 <body>
@@ -121,50 +125,50 @@
         <!-- <img class="logo" src="socialwall.me-logo.png">-->
 				<h1 id="comments" style="padding-top: 50px">Quel DJ devrait changer de nom ?</h2>
     </header>
-		<div class="isCentered">
-			<div id="winnerLike">
-				<img src="DJ/DJ1.png" class="bordering-carl" alt="" />
+		<div class="container">
+
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div id="winnerLove">
-				<img src="DJ/DJ2.png" class="bordering-richy" alt="" />
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div id="winnerHaha">
-				<img src="DJ/DJ3.png" class="bordering-sex" alt="" />
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div id="winnerWow">
-				<img src="DJ/Dj4.png" class="bordering-rico" alt="" />
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div id="winnerSad">
-				<img src="DJ/Dj5.png" class="bordering-knacky" alt="" />
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
 			</div>
-			<div id="winnerAngry">
-				<img src="DJ/Dj6.png" class="bordering-paul" alt="" />
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
 			</div>
+
 		</div>
-    <!-- REACTIONS -->
-		<div style="margin-top: 30px;">
-			<div class="tc wf likes"> Carl Cocks <br><img class="emoji" src="emojis/like.png"> <span class="counter"></span></div>
-			<div class="tc wf happy"> Richie Hot Teen <br><img class="emoji" src="emojis/love.png"><span class="counter"></span></div>
-			<div class="tc wf fml"> Sex Troller <br><img class="emoji" src="emojis/haha.png"><span class="counter"></span></div>
-			<div class="tc wf shock"> Ricardo Villaboloss <br><img class="emoji" src="emojis/shock.png"><span class="counter"></span></div>
-			<div class="tc wf sad"> Knacki Knuckles <br><img class="emoji" src="emojis/sad.png"><span class="counter"></span></div>
-			<div class="tc wf angry"> Paul Kakabrenner <br><img class="emoji" src="emojis/angry.png"><span class="counter"></span></div>
+
+		<div class="container">
+
+			<div class="videoRight">
+				<iframe class="" width="300" height="100" src="https://www.youtube.com/embed/bk6Xst6euQk" frameborder="0" allowfullscreen></iframe>
+			</div>
+
 		</div>
+
 
     <script src="jquery.min.js"></script>
     <script src="lodash.min.js"></script>
     <script>
     "use strict";
-    var access_token = 'EAACEdEose0cBADh39ZBcWwF4ESYASoaCT14ckH6ZAka65ekPECLRWdKpcqNpTdg2AuJtkCVixRYJGMpIBV7AP4pjZCd38HdXQUglb3LgPuet9pwnWtKFXXT02NdfyElpnUyK5khEPfavEKKNyvKwoYSCmDiuZBQP8WC1T6TCzwZDZD'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
-    var postID = '1811256832492312'; // PASTE HERE YOUR POST ID
+		var access_token = 'EAACEdEose0cBAN7IiKiF8owvarjPw1KGTWZAHdHvOdTn78MB3V3uk618KyYwbpEStcO2q2xQGWjpwYZBLCY7F318nII5NUNRI23cM2nWGWIvApJfrLJvkz7Df5EOVkoXj3LnsfajavvLL2s7vJpsJdRh4NJ2PQea3PIuYoIgZDZD'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+    var postID = '538590393006060'; // PASTE HERE YOUR POST ID
     var refreshTime = 5; // Refresh time in seconds
     var defaultCount = 0; // Default count to start with
-
     var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
         var code = 'reactions_' + e.toLowerCase();
         return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
     }).join(',');
-		console.log(reactions);
 
     var	v1 = $('.likes .counter'),
       	v2 = $('.happy .counter'),
@@ -190,13 +194,54 @@
 		$("#winnerWow").hide();
 		$("#winnerSad").hide();
 		$("#winnerAngry").hide();
+		var commentList = null
+		var lastCommentList = {}
+		var uniqueComment = []
+		var expressionURL = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+		var regexURL = new RegExp(expressionURL);
+		function countOccurence(arr) {
+		    var a = [], b = [], prev;
 
+		    arr.sort();
+		    for ( var i = 0; i < arr.length; i++ ) {
+		        if ( arr[i] !== prev ) {
+		            a.push(arr[i]);
+		            b.push(1);
+		        } else {
+		            b[b.length-1]++;
+		        }
+		        prev = arr[i];
+		    }
+
+		    return [a, b];
+		}
+		var occurences = {}
 
     function refreshCounts() {
 				var urlComments = 'https://graph.facebook.com/v2.8/?ids=' + postID + '&fields=comments' + '&access_token=' + access_token;
 				$.getJSON(urlComments, function(res){
-					console.log(res[postID]);
-					$("#comments").text(res[postID].comments.data[0].message)
+					commentList = res[postID].comments.data
+					lastCommentList = {}
+					lastCommentList[commentList[0].from.id] = commentList[0].message
+					commentList.reduce(function(prev, current) {
+						lastCommentList[current.from.id] = current.message
+					});
+					uniqueComment = []
+					Object.keys(lastCommentList).reduce(function(prev, current){
+						uniqueComment.push(lastCommentList[current])
+					});
+					console.log(uniqueComment);
+					occurences = countOccurence(uniqueComment)
+					console.log(occurences);
+					occurences = _.countBy(uniqueComment)
+					var occurencesArray = []
+					_.forEach(Object.keys(occurences), function(key) {
+						occurencesArray.push({message: key, count: occurences[key]})
+					});
+					_.orderBy(occurencesArray, 'count', 'desc')
+					console.log(_.orderBy(occurencesArray));
+
+					$("#comments").text(uniqueComment[0])
 				});
 
         var url = 'https://graph.facebook.com/v2.8/?ids=' + postID + '&fields=' + reactions + '&access_token=' + access_token;
